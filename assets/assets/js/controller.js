@@ -1,10 +1,10 @@
-
+﻿
       
 //TODO: look for instances of toLowerCase();
 //MULTIPLE CHOICE QUESTIONS MUST HAVE THE DEFAULT COLUMN 1 and COLUMN 2 headers must be, they can be changed, but not deleted or empty
 //NOTE:Quiz results are very experimental, still a work in progress
-console.log('SuperWrapper v1.0.6');
-const customVerbPrefix="http://id.superwrapper.com/verb/";
+console.log('UMAWrapper v1');
+const customVerbPrefix="http://id.umawrapper.com/verb/";
 const params = {
     "environment":"production",
     "reportingToLrs":true,
@@ -69,8 +69,8 @@ function init(){
     //if statement is if user returns to slide and init is called again, but the xApiController object
     //is already created it will not try to create a 2nd option
     if(typeof xApiController !=="object"){
-    //set up the superWrapper object
-    sw = new SuperWrapper();
+    //set up the UMAWrapper object
+    sw = new UMAWrapper();
     user = new Learner();
     user.init(()=>{
         xApiController = new XAPIController();
@@ -157,7 +157,7 @@ constructor(store){
         }else(console.log('%c Reporting OFF - no LRS set up for this session','color:orange'))
         this.ie=(()=>{
             if (navigator.appVersion.indexOf('MSIE') !=-1){
-                alert("If possible please use Chrome, Firefox, or Safari as this site does not work well with older version of Internet Explorer");
+                alert("Please use Chrome, Firefox, or Safari as this site does not work well with older version of Internet Explorer");
                 return true;
             }else{
                 return false;
@@ -305,7 +305,7 @@ constructor(store){
                         "studentId": this.lmsId,
                         "studentName": this.lmsUser
                       },
-                "http://superwrapper/extension/slide-info":{
+                "http://umawrapper/extension/slide-info":{
                     "slideIndex":this.currentSlideIndex,
                     "slideName":this.currentSlideName
                 },
@@ -661,7 +661,7 @@ constructor(store){
      if(params.consoleLog.quizLog)console.log(quiz)
     }
 };
-class SuperWrapper{
+class UMAWrapper{
     constructor(){
         this.capGetVarValue = data=>{
             let getData = window.cpAPIInterface.
@@ -672,7 +672,7 @@ class SuperWrapper{
             window.cpAPIInterface.setVariableValue(variable, value);
             return `Variable ${variable} set to ${value}`;
         };
-        this.verbId ='http://id.superwrapper.com/verb/';//TODO:add validaton
+        this.verbId ='http://id.umawrapper.com/verb/';//TODO:add validaton
     };
     jump(slide){
         this.capSetVarValue('cpCmndGotoSlide',slide);
@@ -702,7 +702,7 @@ class SuperWrapper{
             case 'name':
                 if (tebInput!=null || tebInput !="" ){
                     xApiController.actorName = tebInput;
-                    xApiController.actorEmail= `${tebInput}@superwrapper.com`;
+                    xApiController.actorEmail= `${tebInput}@umawrapper.com`;
                 
                 }else return false;
             break;
@@ -764,7 +764,7 @@ class SuperWrapper{
     };
     openWebsite(email){
         //TODO:refine these optioni
-         location.href = `mailto:${email}?subject=Brian%20Floyd's%20Resume`;
+         location.href = `mailto:${email}?subject=Chad%20Smith's%20Attention`;
     };
     callWebsite(url,description){//helper function to manually call website for param passing
         let appendEmailParam ="";
@@ -801,7 +801,7 @@ class Learner{
 
            //if there is a scorm user avaiable this will grab data from scorm if available
         this.learner = {
-        "id":(this.testEmail(this.scorm.LearnerId))?this.scorm.LearnerId:`${insert_(this.scorm.LearnerId)}@superwrapper.com`,
+        "id":(this.testEmail(this.scorm.LearnerId))?this.scorm.LearnerId:`${insert_(this.scorm.LearnerId)}@umawrapper.com`,
         "name":this.scorm.LearnerName
          };
     
@@ -877,11 +877,10 @@ class Learner{
             //TODO:Create xAPI WRapper logo/background
             }); 
             sw.login = $('.login-screen');
-            sw.placeholder = params.login.placeholderText || "Please enter your email and press enter or submit";
-            sw.footer ="Powered by SuperWrapper";
-            sw.message= params.login.loginMessage ||`Entering an email address will be the user that is reported to the demo LRS, for this
-                        demonstration if you would prefer please press the skip button and a demo email
-                        will be assinged to you`
+            sw.placeholder = params.login.placeholderText || "Please enter your UMA email and press enter or submit";
+            sw.footer ="UMA xAPI Enabled";
+            sw.message= params.login.loginMessage ||`The UMA email address entered will be the user that is reported to the LRS, if you would prefer please press the skip button and an email
+                        will be assinged to you.`
     //create input box
             $(`<input class ="email-input" type="email" placeholder ="${sw.placeholder}">"`)
             .appendTo(sw.login)
@@ -950,7 +949,7 @@ class Learner{
                     "background-color":"orange"
                 }))  .on('click',()=>{
                     console.log('click')
-                    window.open(`${this.url.href}?mbox=${(()=>{return ((user.testEmail(params.login.skipEmailValue))?params.login.skipEmailValue:'user@SuperWrapper.com')})()}`,"_parent");
+                    window.open(`${this.url.href}?mbox=${(()=>{return ((user.testEmail(params.login.skipEmailValue))?params.login.skipEmailValue:'user@UMAWrapper.com')})()}`,"_parent");
                 });
             }
         
@@ -1134,7 +1133,7 @@ class Types{
         this.category="http://id.tincanapi.com/activitytype/category";
         this.subcategory ="http://id.tincanapi.com/activitytype/subcategory"
         this.group="http://activitystrea.ms/schema/1.0/group";
-        this.buttonGroup = "http://superwrapper/group/buttongroup";
+        this.buttonGroup = "http://umawrapper/group/buttongroup";
         this.video="http://activitystrea.ms/schema/1.0/video";
         this.pdf="http://activitystrea.ms/schema/1.0/pdf";
         this.source=`http://activitystrea.ms/schema/1.0/source`;
