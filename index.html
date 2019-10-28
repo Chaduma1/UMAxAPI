@@ -32,7 +32,6 @@ if(navigator.appName  !== "Microsoft Internet Explorer"){
 //********************
 //**  UMAWrapper  **
 //********************
-
 function onBodyLoad()
 {
 	if(typeof window.device === 'undefined')
@@ -131,16 +130,6 @@ function inFrame(){
 							lCSSLoaded = true;
 							constructDIVs();
 						});
-												//********************
-						//**  UMAWrapper  **
-						//********************
-						//var lJSFiles = [  'assets/js/jquery-1.11.3.min.js','assets/js/CPM.js' ];
-						var lJSFiles = [  jq,tincan,controllerVersion,cpm ];
-						//this is loading all the variables we set up top
-						//********************
-						//**  UMAWrapper  **
-						//********************
-						cpXHRJSLoader.js(lJSFiles,function()
 						//********************
 						//**  UMAWrapper  **
 						//********************
@@ -150,8 +139,6 @@ function inFrame(){
 						//********************
 						//**  UMAWrapper  **
 						//********************
-						cpXHRJSLoader.js(lJSFiles,function()
-
 						cpXHRJSLoader.js(lJSFiles,function()
 						{
 							//console.log("js loaded");
